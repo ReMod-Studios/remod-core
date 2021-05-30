@@ -25,6 +25,7 @@ allprojects {
     apply plugin: "org.jetbrains.kotlin.jvm"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
+    apply plugin: "signing"
 
     archivesBaseName = rootProject.archives_base_name
     version = rootProject.mod_version
@@ -51,5 +52,6 @@ allprojects {
 
     java {
         withSourcesJar()
+        withJavadocJar()
     }
 }
