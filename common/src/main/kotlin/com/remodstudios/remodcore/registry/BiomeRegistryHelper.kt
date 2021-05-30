@@ -20,7 +20,7 @@ open class BiomeRegistryHelper(registry: DeferredRegister<Biome>): RegistryHelpe
 
     constructor(modid: String): this(DeferredRegister.create(modid, Registry.BIOME_KEY))
 
-    inline fun add(
+    fun add(
         id: String,
         addDefaults: Boolean = true,
         init: BiomeInitScope
@@ -51,11 +51,7 @@ open class BiomeRegistryHelper(registry: DeferredRegister<Biome>): RegistryHelpe
         }
 
         val biome = biomeBuilder.build()
-        `access$registry`.register(id) { biome }
+        registry.register(id) { biome }
         return biome
     }
-
-    @PublishedApi
-    internal val `access$registry`: DeferredRegister<Biome>
-        get() = registry
 }

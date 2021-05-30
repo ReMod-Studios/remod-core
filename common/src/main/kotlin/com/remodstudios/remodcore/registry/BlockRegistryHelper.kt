@@ -1,6 +1,5 @@
 package com.remodstudios.remodcore.registry
 
-import com.remodstudios.lumidep.block.LumidepBlocks
 import me.shedaniel.architectury.registry.BlockProperties
 import me.shedaniel.architectury.registry.DeferredRegister
 import net.minecraft.block.Block
@@ -14,30 +13,24 @@ open class BlockRegistryHelper(
 
     constructor(modid: String) : this(DeferredRegister.create(modid, Registry.BLOCK_KEY))
 
-    fun <V: Block> add(
+    inline fun <reified V: Block> add(
         id: String,
         v: V,
-    ): V {
-        registry.register(id) { v }
-        return v
-    }
+    ) = v.also { registry.register(id) { v } }
 
-    inline fun <V: Block> addOfProp(
+    inline fun <reified V: Block> addOfProp(
         id: String,
         prop: BlockProperties,
-        factory: BlockProperties.() -> V,
-    ): V {
-        val block = prop.factory()
-        return LumidepBlocks.add(id, block)
-    }
+        toBlock: BlockProperties.() -> V,
+    ) = add(id, prop.toBlock())
 
-    inline fun <Original: Block, V: Block> addCopy(
+    inline fun <reified Original: Block, reified V: Block> addCopy(
         id: String,
         original: Original,
         factory: BlockProperties.() -> V,
     ) = addOfProp(id, BlockProperties.copy(original), factory)
 
-    inline fun <Original: Block> addCopyWithInit(
+    inline fun <reified Original: Block> addCopyWithInit(
         id: String,
         original: Original,
         factory: BlockProperties.() -> Unit,
@@ -47,18 +40,18 @@ open class BlockRegistryHelper(
         return addOfProp(id, prop, ::Block)
     }
 
-    fun <Original: Block> addCopy(
+    inline fun <reified Original: Block> addCopy(
         id: String,
         original: Original
     ) = addCopy(id, original) { Block(this) }
 
-    inline fun <V: Block> addOfMaterial(
+    inline fun <reified V: Block> addOfMaterial(
         id: String,
         mat: Material,
         factory: BlockProperties.() -> V
     ) = addOfProp(id, BlockProperties.of(mat), factory)
 
-    inline fun <V: Block> addWoodlike(
+    inline fun <reified V: Block> addWoodlike(
         id: String,
         factory: BlockProperties.() -> V
     ) = addOfMaterial(id, Material.WOOD) {

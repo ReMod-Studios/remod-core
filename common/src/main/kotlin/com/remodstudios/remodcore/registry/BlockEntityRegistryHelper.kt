@@ -13,9 +13,9 @@ open class BlockEntityRegistryHelper(
 
     constructor(modid: String) : this(DeferredRegister.create(modid, Registry.BLOCK_ENTITY_TYPE_KEY))
 
-    fun <V: BlockEntity> add(
+    inline fun <reified V: BlockEntity> add(
         id: String,
-        v: () -> V,
+        noinline v: () -> V,
         vararg blocks: Block,
         dataFixType: Type<*>? = null
     ): BlockEntityType<V> {
