@@ -25,8 +25,6 @@ dependencies {
     // Remove the next line if you don't want to depend on the API
     modApi("me.shedaniel:architectury-fabric:$archapi_version")
     modImplementation("net.fabricmc:fabric-language-kotlin:$flk_version+kotlin.$kotlin_version")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
-
     implementation(project(path = ":common")) {
         isTransitive = false
     }
