@@ -1,4 +1,4 @@
-package com.remodstudios.remodcore.biome
+package io.github.remodstudios.remodcore.biome
 
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup

@@ -1,4 +1,4 @@
-package com.remodstudios.remodcore
+package io.github.remodstudios.remodcore
 
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.entity.Entity
@@ -8,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.math.*
 import net.minecraft.world.World
 import kotlin.math.PI
-import kotlin.properties.Delegates
 
 // Miscellaneous extensions
 

@@ -7,9 +7,9 @@ pluginManagement {
     }
 
     plugins {
-        id "architectury-plugin" version architectury_plugin_version
+        id "architectury-plugin" version archplugin_version
         id "org.jetbrains.kotlin.jvm" version kotlin_version
-        id "forgified-fabric-loom" version forgified_loom_version
+        id "dev.architectury.loom" version archloom_version
     }
 }
 

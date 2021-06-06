@@ -1,4 +1,4 @@
-package com.remodstudios.remodcore.registry
+package io.github.remodstudios.remodcore.registry
 
 import me.shedaniel.architectury.registry.DeferredRegister
 import net.minecraft.block.Block

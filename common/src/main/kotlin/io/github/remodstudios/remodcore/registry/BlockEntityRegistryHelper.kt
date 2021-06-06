@@ -1,4 +1,4 @@
-package com.remodstudios.remodcore.registry
+package io.github.remodstudios.remodcore.registry
 
 import com.mojang.datafixers.types.Type
 import me.shedaniel.architectury.registry.DeferredRegister

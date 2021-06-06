@@ -1,0 +1,36 @@
+modLoader="kotlinforforge"
+loaderVersion="[1.12,)"
+#issueTrackerURL = ""
+license = "Apache-2.0"
+
+[[mods]]
+modId = "remodcore"
+version = "${version}"
+displayName = "ReMod Core"
+authors = "ReMod Studios"
+description = '''
+Common code across all Java Edition mods from ReMod Studios
+'''
+#logoFile = ""
+
+[[dependencies.remodcore]]
+modId = "forge"
+mandatory = true
+versionRange = "[35,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.remodcore]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.remodcore]]
+modId = "architectury"
+mandatory = true
+versionRange = "[1.1.55,)"
+ordering = "AFTER"
+side = "BOTH"
+

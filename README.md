@@ -5,7 +5,7 @@ The absolute bare-bones (badum psh) skeleton for ReMod Studios' Java Edition mod
 2. Replace *all* occurences of `architectury-skeleton`, `ArchitecturySkeleton` and `archskeleton` in the project. Detailed list as follows:
     * in the last line of `settings.gradle` (`rootProject.name = "architectury-skeleton"`)
     * the `archives_base_name` property in `gradle.properties`
-    * the package names for all three modules (`com.remodstudios.archskeleton.(fabric|forge)?`)
+    * the package names for all three modules (`io.github.remodstudios.archskeleton.(fabric|forge)?`)
     * the main class in `common` (`ArchitecturySkeleton`), along with its `MOD_ID` field (`archskeleton`)
     * the client class in `common` (`ArchitecturySkeletonClient`)
     * the modloader specific entrypoints (`ArchitecturySkeleton(Fabric|Forge)(Client)?`)
@@ -16,11 +16,11 @@ The absolute bare-bones (badum psh) skeleton for ReMod Studios' Java Edition mod
           "entrypoints": {
             "main": [{
               "adapter": "kotlin",
-              "value": "com.remodstudios.archskeleton.fabric.ArchitecturySkeletonFabric"
+              "value": "io.github.remodstudios.archskeleton.fabric.ArchitecturySkeletonFabric"
             }],
             "client": [{
               "adapter": "kotlin",
-              "value": "com.remodstudios.archskeleton.fabric.ArchitecturySkeletonFabricClient"
+              "value": "io.github.remodstudios.archskeleton.fabric.ArchitecturySkeletonFabricClient"
             }]
           },
           // ...
