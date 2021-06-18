@@ -6,7 +6,7 @@ import net.minecraft.world.biome.Biome
 
 object BiomeRegistrarImpl {
     @JvmStatic
-    fun addImpl(id: Identifier, b: Biome) {
+    fun add(id: Identifier, b: Biome) {
         BuiltinRegistries.add(BuiltinRegistries.BIOME, id, b)
     }
 }

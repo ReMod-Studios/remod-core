@@ -7,7 +7,7 @@ import java.lang.AssertionError
 
 object BiomeRegistrarImpl {
     @JvmStatic
-    fun addImpl(id: Identifier, b: Biome) {
+    fun add(id: Identifier, b: Biome) {
         // a bit funky, but it'll do I guess
         if (b.registryName != null)
             throw AssertionError("Biome has already been registered under different ID (\"${b.registryName}\")!")
