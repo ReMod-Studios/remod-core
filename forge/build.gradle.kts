@@ -135,6 +135,38 @@ publishing {
                     developerConnection.set("scm:git:ssh://github.com:ReMod-Studios/remod-core.git")
                     url.set("https://github.com/ReMod-Studios/remod-core/tree/master")
                 }
+
+                withXml {
+                    fun child(parent: groovy.util.Node, name: String): groovy.util.Node? {
+                        val raw = parent[name]
+                        if (raw is groovy.util.Node)
+                            return raw
+                        else if (raw is groovy.util.NodeList) {
+                            return if (raw.isEmpty())
+                                null
+                            else
+                                raw.first() as groovy.util.Node
+                        }
+                        return null
+                    }
+
+                    // this removes all "fake" dependencies (remapped dependencies and our common code)
+                    val root = asNode()
+                    val deps = child(root, "dependencies")
+                    if (deps != null) {
+                        val toRemove = ArrayList<groovy.util.Node>()
+                        for (depRaw in deps) {
+                            val dep = depRaw as groovy.util.Node
+                            val group = child(dep, "groupId")?.value() as String
+                            val artifact = child(dep, "artifactId")?.value() as String
+                            if (group.startsWith("net_fabricmc_yarn_") // remapped dependency
+                                || group == project.group && artifact == "common") // our common code
+                                toRemove.add(dep)
+                        }
+                        for (dep in toRemove)
+                            deps.remove(dep)
+                    }
+                }
             }
             from(components["java"])
             // add all the jars that should be included when publishing to maven

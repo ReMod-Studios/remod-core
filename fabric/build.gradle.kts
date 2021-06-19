@@ -1,3 +1,5 @@
+import groovy.util.Node
+
 plugins {
     id("com.github.johnrengelman.shadow") version "5.0.0"
 }
@@ -125,6 +127,16 @@ publishing {
                     connection.set("scm:git:git://github.com/ReMod-Studios/remod-core.git")
                     developerConnection.set("scm:git:ssh://github.com:ReMod-Studios/remod-core.git")
                     url.set("https://github.com/ReMod-Studios/remod-core/tree/master")
+                }
+
+                withXml {
+                    // this removes all dependencies
+                    // dependencies are apparently added after we remove everything,
+                    //  but these don't include "fake" dependencies (remapped dependencies and our common code)
+                    val root = asNode()
+                    val depsList = root["dependencies"] as groovy.util.NodeList
+                    if (depsList.isNotEmpty())
+                        root.remove(depsList.first() as Node)
                 }
             }
             from(components["java"])
