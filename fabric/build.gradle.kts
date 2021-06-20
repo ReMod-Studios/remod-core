@@ -98,6 +98,8 @@ publishing {
             version = mod_version
 
             pom {
+                suppressPomMetadataWarningsFor("mavenFabric")
+
                 name.set("ReMod Core Fabric")
                 description.set("Common code across all Java Edition mods from ReMod Studios | Fabric version")
                 url.set("https://github.com/ReMod-Studios/remod-core")
