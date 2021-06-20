@@ -645,6 +645,7 @@ class BiomeTemplate internal constructor() {
     fun build(): Biome {
         val builder = Biome.Builder()
         builder.category(category!!)
+        builder.precipitation(precipitation!!)
         builder.depth(depth!!)
         builder.scale(scale!!)
         builder.temperature(temperature!!)
