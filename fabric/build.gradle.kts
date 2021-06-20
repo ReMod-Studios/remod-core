@@ -98,7 +98,7 @@ publishing {
             version = mod_version
 
             pom {
-                suppressPomMetadataWarningsFor("mavenFabric")
+                suppressAllPomMetadataWarnings()
 
                 name.set("ReMod Core Fabric")
                 description.set("Common code across all Java Edition mods from ReMod Studios | Fabric version")
