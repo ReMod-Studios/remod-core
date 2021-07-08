@@ -1,7 +1,12 @@
 package io.github.remodstudios.remodcore
 
+import io.github.remodstudios.remodcore.registry.BiomeRegistrarImpl
 import net.minecraftforge.fml.common.Mod
+import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-// just fucking why
-@Mod("remodcore")
-object ReModCoreForge
+@Mod(ReModCore.ID)
+object ReModCoreForge {
+    init {
+        BiomeRegistrarImpl.register(MOD_BUS)
+    }
+}
