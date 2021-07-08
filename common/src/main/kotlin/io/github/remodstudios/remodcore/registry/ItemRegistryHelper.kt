@@ -1,6 +1,6 @@
 package io.github.remodstudios.remodcore.registry
 
-import me.shedaniel.architectury.registry.DeferredRegister
+import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.block.Block
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item

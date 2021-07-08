@@ -10,9 +10,9 @@ dependencies {
     // Do NOT use other classes from fabric loader
     modImplementation("net.fabricmc:fabric-loader:$floader_version")
     // Remove the next line if you don't want to depend on the API
-    modApi("me.shedaniel:architectury:$archapi_version")
+    modApi("dev.architectury:architectury:$archapi_version")
 }
 
 architectury {
-    common()
+    common(false) // FIXME remove false when Forge 1.17 is released and Arch supports it -ADCLeo
 }

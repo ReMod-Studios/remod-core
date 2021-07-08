@@ -25,7 +25,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:$floader_version")
     modApi("net.fabricmc.fabric-api:fabric-api:$fapi_version")
     // Remove the next line if you don't want to depend on the API
-    modApi("me.shedaniel:architectury-fabric:$archapi_version")
+    modApi("dev.architectury:architectury-fabric:$archapi_version")
     modImplementation("net.fabricmc:fabric-language-kotlin:$flk_version+kotlin.$kotlin_version")
     implementation(project(path = ":common")) {
         isTransitive = false

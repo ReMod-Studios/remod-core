@@ -1,3 +1,5 @@
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+
 package io.github.remodstudios.remodcore.biome
 
 import net.minecraft.entity.EntityType
@@ -84,7 +86,7 @@ class BiomeTemplate internal constructor() {
             copy.music = music
             return copy
         }
-        
+
         internal fun build(): BiomeEffects {
             val effectsBuilder = BiomeEffects.Builder()
             effectsBuilder.fogColor(fogColor!!)
@@ -137,7 +139,12 @@ class BiomeTemplate internal constructor() {
 
         @BiomeTemplateDslMarker
         inner class Spawns internal constructor(private var group: SpawnGroup) {
-            fun entry(entityType: EntityType<*>, weight: Int, minGroupSize: Int, maxGroupSize: Int): MCSpawnSettings.SpawnEntry {
+            fun entry(
+                entityType: EntityType<*>,
+                weight: Int,
+                minGroupSize: Int,
+                maxGroupSize: Int
+            ): MCSpawnSettings.SpawnEntry {
                 return MCSpawnSettings.SpawnEntry(
                     entityType,
                     weight,
@@ -168,18 +175,32 @@ class BiomeTemplate internal constructor() {
                 builderModifiers.add(DefaultBiomeFeatures::addFarmAnimals)
             }
 
-            fun bats() {
-                builderModifiers.add(DefaultBiomeFeatures::addBats)
+            fun caveMobs() {
+                builderModifiers.add(DefaultBiomeFeatures::addCaveMobs)
             }
+
+            @Deprecated(message = "Renamed to caveMods", replaceWith = ReplaceWith("caveMobs()"))
+            fun bats() = caveMobs()
 
             fun batsAndMonsters() {
                 builderModifiers.add(DefaultBiomeFeatures::addBatsAndMonsters)
             }
-            
-            fun oceanMobs(squidWeight: Int, squidMaxGroupSize: Int, codWeight: Int) {
-                builderModifiers.add { DefaultBiomeFeatures.addOceanMobs(it, squidWeight, squidMaxGroupSize, codWeight) }
+
+            fun caveWaterMobs() {
+                builderModifiers.add(DefaultBiomeFeatures::addCaveWaterMobs)
             }
-            
+
+            fun oceanMobs(squidWeight: Int, squidMaxGroupSize: Int, codWeight: Int) {
+                builderModifiers.add {
+                    DefaultBiomeFeatures.addOceanMobs(
+                        it,
+                        squidWeight,
+                        squidMaxGroupSize,
+                        codWeight
+                    )
+                }
+            }
+
             fun warmOceanMobs(squidWeight: Int, squidMaxGroupSize: Int) {
                 builderModifiers.add { DefaultBiomeFeatures.addWarmOceanMobs(it, squidWeight, squidMaxGroupSize) }
             }
@@ -195,9 +216,16 @@ class BiomeTemplate internal constructor() {
             fun desertMobs() {
                 builderModifiers.add(DefaultBiomeFeatures::addDesertMobs)
             }
-            
+
             fun monsters(zombieWeight: Int, zombieVillagerWeight: Int, skeletonWeight: Int) {
-                builderModifiers.add { DefaultBiomeFeatures.addMonsters(it, zombieWeight, zombieVillagerWeight, skeletonWeight) }
+                builderModifiers.add {
+                    DefaultBiomeFeatures.addMonsters(
+                        it,
+                        zombieWeight,
+                        zombieVillagerWeight,
+                        skeletonWeight
+                    )
+                }
             }
 
             fun mushroomMobs() {
@@ -228,7 +256,7 @@ class BiomeTemplate internal constructor() {
             copy.playerSpawnFriendly = playerSpawnFriendly
             return copy
         }
-        
+
         internal fun build(): MCSpawnSettings {
             val spawnBuilder = MCSpawnSettings.Builder()
             for ((key, value) in spawners) {
@@ -347,8 +375,12 @@ class BiomeTemplate internal constructor() {
                 builderModifiers.add(DefaultBiomeFeatures::addDungeons)
             }
 
-            fun mineables() {
-                builderModifiers.add(DefaultBiomeFeatures::addMineables)
+            fun mineables(glowLichen: Boolean = true) {
+                builderModifiers.add { DefaultBiomeFeatures.addMineables(it, !glowLichen) }
+            }
+
+            fun dripstone() {
+                builderModifiers.add(DefaultBiomeFeatures::addDripstone)
             }
 
             fun defaultOres() {
@@ -371,9 +403,12 @@ class BiomeTemplate internal constructor() {
                 builderModifiers.add(DefaultBiomeFeatures::addDefaultDisks)
             }
 
-            fun clay() {
-                builderModifiers.add(DefaultBiomeFeatures::addClay)
+            fun clayDisk() {
+                builderModifiers.add(DefaultBiomeFeatures::addClayDisk)
             }
+
+            @Deprecated(message = "Renamed to clayDisk", replaceWith = ReplaceWith("clayDisk()"))
+            fun clay() = clayDisk()
 
             fun mossyRocks() {
                 builderModifiers.add(DefaultBiomeFeatures::addMossyRocks)
@@ -425,6 +460,14 @@ class BiomeTemplate internal constructor() {
 
             fun extraSavannaTrees() {
                 builderModifiers.add(DefaultBiomeFeatures::addExtraSavannaTrees)
+            }
+
+            fun lushCavesDecoration() {
+                builderModifiers.add(DefaultBiomeFeatures::addLushCavesDecoration)
+            }
+
+            fun clayOre() {
+                builderModifiers.add(DefaultBiomeFeatures::addClayOre)
             }
 
             fun mountainTrees() {
@@ -586,6 +629,10 @@ class BiomeTemplate internal constructor() {
             fun ancientDebris() {
                 builderModifiers.add(DefaultBiomeFeatures::addAncientDebris)
             }
+
+            fun amethystGeodes() {
+                builderModifiers.add(DefaultBiomeFeatures::addAmethystGeodes)
+            }
             // endregion
         }
 
@@ -601,7 +648,7 @@ class BiomeTemplate internal constructor() {
             copy.structureFeatures += structureFeatures
             return copy
         }
-        
+
         internal fun build(): MCGenerationSettings {
             val genBuilder = MCGenerationSettings.Builder()
             genBuilder.surfaceBuilder(surfaceBuilder!!)
@@ -609,7 +656,7 @@ class BiomeTemplate internal constructor() {
                 for (it in value)
                     genBuilder.feature(key, it)
             }
-            for ((key, value)  in carvers) {
+            for ((key, value) in carvers) {
                 for (it in value)
                     genBuilder.carver(key, it)
             }
@@ -641,7 +688,7 @@ class BiomeTemplate internal constructor() {
         this.generationSettings = generationSettings
         return generationSettings
     }
-    
+
     fun build(): Biome {
         val builder = Biome.Builder()
         builder.category(category!!)

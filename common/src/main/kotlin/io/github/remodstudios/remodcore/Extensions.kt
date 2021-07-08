@@ -5,9 +5,13 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.util.math.*
+import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Box
+import net.minecraft.util.math.Position
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import kotlin.math.PI
+import kotlin.math.sqrt
 
 // Miscellaneous extensions
 
@@ -22,7 +26,7 @@ fun Entity.squaredDistanceTo(blockPos: BlockPos)
 
 // MafsUtil:tm:
 fun magnitude(x: Double, y: Double, z: Double)
-        = MathHelper.sqrt(x*x + y*y + z*z)
+        = sqrt(x*x + y*y + z*z).toFloat()
 
 fun Float.toDeg(): Float = this * 180f / PI.toFloat()
 fun Float.toRad(): Float = this * PI.toFloat() / 180f
@@ -40,14 +44,14 @@ inline operator fun MatrixStack.invoke(block: (MatrixStack) -> Unit) {
     pop()
 }
 
-operator fun Vec3d.unaryMinus(): Vec3d = this.multiply(-1.0) // can't use #negate since it's client-side only :mojank:
+operator fun Vec3d.unaryMinus(): Vec3d = this.negate()
 
 operator fun Vec3d.plus(by: Vec3d): Vec3d = this.add(by)
 operator fun Vec3d.minus(by: Vec3d): Vec3d = this.subtract(by)
 operator fun Vec3d.times(by: Double): Vec3d = this.multiply(by)
 operator fun Vec3d.div(by: Double): Vec3d = this.multiply(1 / by)
 
-fun PlayerEntity.applyStatusEffect(type: StatusEffect,
+fun PlayerEntity.addStatusEffect(type: StatusEffect,
                                    duration: Int = 0,
                                    amplifier: Int = 0,
                                    ambient: Boolean = false,
@@ -55,8 +59,19 @@ fun PlayerEntity.applyStatusEffect(type: StatusEffect,
                                    showIcon: Boolean = true,
                                    hiddenEffect: StatusEffectInstance? = null)
 {
-    applyStatusEffect(StatusEffectInstance(type, duration, amplifier, ambient, showParticles, showIcon, hiddenEffect))
+    addStatusEffect(StatusEffectInstance(type, duration, amplifier, ambient, showParticles, showIcon, hiddenEffect))
 }
+
+@Deprecated(message = "Renamed to addStatusEffect",
+    replaceWith = ReplaceWith(expression = "addStatusEffect(type, duration, amplifier, ambient, showParticles, showIcon, hiddenEffect)"))
+fun PlayerEntity.applyStatusEffect(type: StatusEffect,
+                                   duration: Int = 0,
+                                   amplifier: Int = 0,
+                                   ambient: Boolean = false,
+                                   showParticles: Boolean = true,
+                                   showIcon: Boolean = true,
+                                   hiddenEffect: StatusEffectInstance? = null)
+    = addStatusEffect(type, duration, amplifier, ambient, showParticles, showIcon, hiddenEffect)
 
 @JvmInline
 value class Color(val value: Int) {

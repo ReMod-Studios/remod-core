@@ -26,7 +26,7 @@ dependencies {
 
     forge("net.minecraftforge:forge:$minecraft_version-$forge_version")
     // Remove the next line if you don't want to depend on the API
-    modApi("me.shedaniel:architectury-forge:$archapi_version")
+    modApi("dev.architectury:architectury-forge:$archapi_version")
 
     implementation("thedarkcolour:kotlinforforge:$kotlinforforge_version")
 
